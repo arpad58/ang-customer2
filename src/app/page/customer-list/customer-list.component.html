@@ -1,0 +1,46 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-10 offset-1">
+      <h2>Customer List</h2>
+      <div>
+        <input
+          (keyup)="onFilterPhrase($event)"
+          class="form-control mr-sm-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+      </div>
+      <button [routerLink]="['/customer-editor']" class="btn btn-primary btn-block">
+        <i class="fa fa-plus"></i>
+      </button>
+      <table class="table">
+        <thead>
+          <tr>
+            <th (click)="onColumnSelect('id')">#</th>
+            <th (click)="onColumnSelect('name')">Name</th>
+            <th (click)="onColumnSelect('email')">Email</th>
+            <th (click)="onColumnSelect('rating')">Rating</th>
+            <th (click)="onColumnSelect('address')">Address</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let customer of customerList$ | async | sorter: columnKey:direction | filter: phrase: 'name'">
+            <td>{{customer.id}}</td>
+            <td>{{customer.name}}</td>
+            <td>{{customer.email}}</td>
+            <td>{{customer.rating}}</td>
+            <td>{{customer.address}}</td>
+            <td>
+              <button (click)="onDelete(customer)" class="btn btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
